@@ -147,7 +147,7 @@ We choose Late Fusion approach
     Command: `python3 train_network.py`
     
 Future Work:
-    - Convert mp4 files from AudioSet to .wav files and use these to train the network
-    - Evaluate Results
-    - Add images from the video to this analysis (re-train network)
-    - Evaluate Results
+    * Convert mp4 files from AudioSet to .wav files and use these to train the network
+    * Evaluate Results
+    * Add images from the video to this analysis (re-train network)
+    * Evaluate Results
