@@ -137,5 +137,17 @@ We choose Late Fusion approach
 
 
 # How to run
-
-    python3 preprocess_data.py
+1. Download AudioSet dataset
+    * Each folder represents a class
+    * Command: `python3 download_audioset.py`
+2. Preprocess data
+    * ATM not working with AudioSet, but rather with the Samples folder
+    Command: `python3 preprocess_data.py`
+3. Train Network (Audio only)
+    Command: `python3 train_network.py`
+    
+Future Work:
+    - Convert mp4 files from AudioSet to .wav files and use these to train the network
+    - Evaluate Results
+    - Add images from the video to this analysis (re-train network)
+    - Evaluate Results
