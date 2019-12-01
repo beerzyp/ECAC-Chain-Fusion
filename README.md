@@ -142,9 +142,9 @@ We choose Late Fusion approach
     * Command: `python3 download_audioset.py`
 2. Preprocess data
     * ATM not working with AudioSet, but rather with the Samples folder
-    Command: `python3 preprocess_data.py`
+    * Command: `python3 preprocess_data.py`
 3. Train Network (Audio only)
-    Command: `python3 train_network.py`
+    * Command: `python3 train_network.py`
     
 Future Work:
 
