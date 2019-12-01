@@ -21,7 +21,6 @@ def preprocess_dataset(inpath="Samples/", outpath="Preproc/"):
     nb_classes = len(class_names)
     print("class_names = ",class_names)
     for idx, classname in enumerate(class_names):   # go through the subdirs
-
         if not os.path.exists(outpath+classname):
             os.mkdir(outpath+classname);   # make a new subdirectory for preproc class
 
@@ -44,6 +43,6 @@ def preprocess_dataset(inpath="Samples/", outpath="Preproc/"):
             np.save(outfile,melgram)
 
 if __name__ == '__main__':
-    preprocess_dataset()
+    preprocess_dataset(inpath='AudioSet/')
 
 
