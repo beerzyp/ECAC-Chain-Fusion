@@ -1,4 +1,7 @@
 from __future__ import print_function
+import sys
+sys.path.append('./sdk')
+
 from model import TFN
 from utils import MultimodalDataset
 from torch.utils.data import DataLoader

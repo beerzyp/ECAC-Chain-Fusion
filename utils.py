@@ -7,7 +7,12 @@ of the utils below at https://github.com/Justin1904/tetheras-utils.
 Preprocessing multimodal data is really tiring...
 '''
 from __future__ import print_function
-import mmdata
+import sys
+sys.path.append('./sdk')
+
+print(sys.path)
+
+from mmsdk import mmdatasdk as mmdata
 import numpy as np
 from torch.utils.data import Dataset
 

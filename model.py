@@ -1,4 +1,7 @@
 from __future__ import print_function
+import sys
+sys.path.append('./sdk')
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
