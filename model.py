@@ -8,6 +8,7 @@ import torch.nn.functional as F
 from torch.autograd import Variable
 from torch.nn.parameter import Parameter
 from torch.nn.init import xavier_uniform, xavier_normal, orthogonal
+import numpy as np
 
 
 class SubNet(nn.Module):

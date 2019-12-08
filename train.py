@@ -14,7 +14,31 @@ import random
 import torch.nn as nn
 import torch.optim as optim
 import numpy as np
+import h5py
 
+def load_preprocessed():
+    with h5py.File('data/X_train.h5', 'r') as f:
+        a_group_key = list(f.keys())[0]
+        train_set = np.array(f[a_group_key])
+
+    with h5py.File('data/X_valid.h5', 'r') as f:
+        a_group_key = list(f.keys())[0]
+        valid_set = np.array(f[a_group_key])
+
+    with h5py.File('data/X_test.h5', 'r') as f:
+        a_group_key = list(f.keys())[0]
+        test_set = np.array(f[a_group_key])
+
+    audio_dim = train_set[0][0].shape[0]
+    print("Audio feature dimension is: {}".format(audio_dim))
+    visual_dim = train_set[0][1].shape[0]
+    print("Visual feature dimension is: {}".format(visual_dim))
+    text_dim = train_set[0][2].shape[0]
+    print(train_set[0][2].shape)
+    print("Text feature dimension is: {}".format(text_dim))
+    input_dims = (audio_dim, visual_dim, text_dim)
+
+    return train_set, valid_set, test_set, input_dims
 
 def preprocess(options):
     # parse the input args
@@ -80,7 +104,7 @@ def display(test_loss, test_binacc, test_precision, test_recall, test_f1, test_s
 
 def main(options):
     DTYPE = torch.FloatTensor
-    train_set, valid_set, test_set, input_dims = preprocess(options)
+    train_set, valid_set, test_set, input_dims = load_preprocessed() #preprocess(options)
 
     model = TFN(input_dims, (4, 16, 128), 64, (0.3, 0.3, 0.3, 0.3), 32)
     if options['cuda']:
