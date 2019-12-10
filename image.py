@@ -10,14 +10,14 @@ from math import ceil
 
 BATCH_SIZE = 32
 IMAGE_SIZE = 224
-NUM_CLASSES = 7
+NUM_CLASSES = 5
 DATASET_PATH = "data/"
 
 print("DATASET_PATH content")
 print(os.listdir(DATASET_PATH))
 
 # Read CSV file
-df = pd.read_csv(DATASET_PATH + "styles.csv", nrows=5000, error_bad_lines=False)
+df = pd.read_csv(DATASET_PATH + "styles.csv", nrows=200, error_bad_lines=False)
 df['image'] = df.apply(lambda row: str(row['id']) + ".jpg", axis=1)
 df['usage'] = df['usage'].astype('str')
 df = df.sample(frac=1).reset_index(drop=True)
