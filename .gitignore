@@ -1,3 +1,4 @@
-data/
+data/styles.csv
+data/images
 .DS_Store
 __pycache__/
