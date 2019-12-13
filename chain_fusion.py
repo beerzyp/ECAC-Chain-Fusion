@@ -68,7 +68,7 @@ test_generator = MultimodalDataGenerator(
 
 
 # Build image model
-base_model1 = VGG16(weights='imagenet', include_top=False, input_shape=(IMAGE_SIZE, IMAGE_SIZE, 3), dropout_prob=DROPOUT_PROB)
+base_model1 = VGG16(weights='imagenet', include_top=False, input_shape=(IMAGE_SIZE, IMAGE_SIZE, 3))
 
 for layer in base_model1.layers:
     layer.trainable = False
