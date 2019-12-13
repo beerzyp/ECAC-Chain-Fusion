@@ -8,6 +8,7 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.applications.vgg16 import VGG16
 from math import ceil
 
+
 BATCH_SIZE = 32
 IMAGE_SIZE = 224
 NUM_CLASSES = 5
@@ -17,7 +18,7 @@ print("DATASET_PATH content")
 print(os.listdir(DATASET_PATH))
 
 # Read CSV file
-df = pd.read_csv(DATASET_PATH + "styles.csv", nrows=200, error_bad_lines=False)
+df = pd.read_csv(DATASET_PATH + "styles.csv", nrows=200, error_bad_lines=True)
 df['image'] = df.apply(lambda row: str(row['id']) + ".jpg", axis=1)
 df['usage'] = df['usage'].astype('str')
 df = df.sample(frac=1).reset_index(drop=True)
@@ -74,11 +75,11 @@ model.summary()
 # Fit model
 model.fit_generator(
     generator=training_generator,
-    steps_per_epoch=ceil(0.8 * (df.size / BATCH_SIZE)),
+    steps_per_epoch=ceil(training_generator.samples / BATCH_SIZE),
 
     validation_data=validation_generator,
-    validation_steps=ceil(0.2 * (df.size / BATCH_SIZE)),
-
+    validation_steps=ceil(validation_generator.samples / BATCH_SIZE),
+    
     epochs=1,
     verbose=1
 )

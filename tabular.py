@@ -5,16 +5,18 @@ import keras
 from keras.models import Model, Sequential
 from keras.layers import Activation, Dropout, Flatten, Dense, Conv2D, MaxPooling2D, Flatten, Dense, GlobalAveragePooling2D
 from sklearn.model_selection import train_test_split
+from math import ceil
+
 BATCH_SIZE = 32
 IMAGE_SIZE = 224
-NUM_CLASSES = 7
+NUM_CLASSES = 5
 DATASET_PATH = "data/"
 
 print("DATASET_PATH content")
 print(os.listdir(DATASET_PATH))
 
 # Read CSV file
-df = pd.read_csv(DATASET_PATH + "styles.csv", nrows=5000, error_bad_lines=False)
+df = pd.read_csv(DATASET_PATH + "styles.csv", nrows=200, error_bad_lines=False)
 df['usage'] = df['usage'].astype('str')
 df = df.sample(frac=1).reset_index(drop=True)
 
@@ -46,9 +48,16 @@ print ("Final Model summary")
 model.summary()
 
 
-model.fit(X_train, y_train, epochs=1, batch_size=10)
+model.fit(
+    X_train,
+    y_train,
+    steps_per_epoch = ceil(len(X_train) / BATCH_SIZE),
+
+    validation_data=(X_test, y_test),
+    validation_steps= ceil(len(X_test) / BATCH_SIZE),
+    
+    epochs=1,
+    verbose=1
+)
+
 model.save('weights/tabular_model.h5')
-
-
-prediction = model.predict(X_test)
-print(prediction)
