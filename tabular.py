@@ -3,13 +3,13 @@ import pandas as pd
 import os
 import keras
 from keras.models import Model, Sequential
-from keras.layers import Activation, Dropout, Flatten, Dense, Conv2D, MaxPooling2D, Flatten, Dense, GlobalAveragePooling2D
+from keras.layers import Activation, Dropout, Flatten, Dense, Conv2D, MaxPooling2D, Flatten, Dense, GlobalAveragePooling2D, Dropout
 from sklearn.model_selection import train_test_split
 from math import ceil
 
 BATCH_SIZE = 32
-IMAGE_SIZE = 224
 NUM_CLASSES = 5
+DROPOUT_PROB = 0.2
 DATASET_PATH = "data/"
 
 print("DATASET_PATH content")
@@ -40,6 +40,7 @@ print(y)
 
 model = Sequential()
 model.add(Dense(12, input_dim=len(X.columns), activation='relu'))
+model.add(Dropout(DROPOUT_PROB))
 model.add(Dense(8, activation='relu'))
 model.add(Dense(NUM_CLASSES, activation='softmax'))
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])

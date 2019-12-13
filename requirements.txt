@@ -1,4 +1,6 @@
+scikit_image==0.16.2
+pandas==0.25.1
 numpy==1.16.4
 Keras==2.3.1
-pandas==0.25.1
 scikit_learn==0.22
+skimage==0.0

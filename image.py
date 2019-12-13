@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import keras
 from keras.models import Model, load_model
-from keras.layers import Activation, Dropout, Flatten, Dense, Conv2D, MaxPooling2D, Flatten, Dense, GlobalAveragePooling2D
+from keras.layers import Activation, Dropout, Flatten, Dense, Conv2D, MaxPooling2D, Flatten, Dense, GlobalAveragePooling2D, Dropout
 from keras.preprocessing.image import ImageDataGenerator
 from keras.applications.vgg16 import VGG16
 from math import ceil
@@ -12,6 +12,7 @@ from math import ceil
 BATCH_SIZE = 32
 IMAGE_SIZE = 224
 NUM_CLASSES = 5
+DROPOUT_PROB = 0.2
 DATASET_PATH = "data/"
 
 print("DATASET_PATH content")
@@ -62,6 +63,7 @@ print(base_model.summary())
 # Add classification layers
 x = base_model.output
 x = GlobalAveragePooling2D()(x)
+x = Dropout(DROPOUT_PROB)(x)
 x = Dense(1024, activation='relu')(x)
 predictions = Dense(NUM_CLASSES, activation='softmax')(x)
 
