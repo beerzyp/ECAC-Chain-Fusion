@@ -20,7 +20,6 @@ TABULAR_COLS = ['gender', 'masterCategory', 'subCategory', 'articleType', 'baseC
 df = pd.read_csv(DATASET_PATH + "styles.csv", nrows=200, error_bad_lines=True)
 df['image'] = df.apply(lambda row: str(row['id']) + ".jpg", axis=1)
 df['usage'] = df['usage'].astype('str')
-classes = pd.unique(df['usage'])
 
 images = df['image']
 tabular = pd.get_dummies(df[TABULAR_COLS])
@@ -95,7 +94,6 @@ model = Model(inputs=[base_model1.input, base_model2], outputs=predictions) # In
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 print(model.summary())
-print(classes)
 
 model.fit_generator(
     generator=training_generator,
