@@ -33,29 +33,30 @@ def clean_doc(doc):
     tokens = [word for word in tokens if len(word) > 1]
     return tokens
 
-# load the document
-filename = 'data/styles.csv'
-text = load_doc(filename)
-tokens = clean_doc(text)
-# print(tokens)
+if __name__ == "__main__":
+    # load the document
+    filename = 'data/styles.csv'
+    text = load_doc(filename)
+    tokens = clean_doc(text)
+    # print(tokens)
 
-# define vocab
-vocab = Counter()
-vocab.update(tokens)
-print(len(vocab))
-print(vocab.most_common(50))
+    # define vocab
+    vocab = Counter()
+    vocab.update(tokens)
+    print(len(vocab))
+    print(vocab.most_common(50))
 
-#keep tokens with a min occurrence
-min_occurane = 2
-tokens = [k for k,c in vocab.items() if c >= min_occurane]
-print(len(tokens))
+    #keep tokens with a min occurrence
+    min_occurane = 2
+    tokens = [k for k,c in vocab.items() if c >= min_occurane]
+    print(len(tokens))
 
-# save tokens to file
-def save_list(lines, filename):
-    data = '\n'.join(lines)
-    file = open(filename, 'w')
-    file.write(data)
-    file.close()
+    # save tokens to file
+    def save_list(lines, filename):
+        data = '\n'.join(lines)
+        file = open(filename, 'w')
+        file.write(data)
+        file.close()
  
-# save tokens to a vocabulary file
-save_list(tokens, 'data/vocab.txt')
+    # save tokens to a vocabulary file
+    save_list(tokens, 'data/vocab.txt')
