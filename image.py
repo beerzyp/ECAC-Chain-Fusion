@@ -19,9 +19,10 @@ print("DATASET_PATH content")
 print(os.listdir(DATASET_PATH))
 
 # Read CSV file
-df = pd.read_csv(DATASET_PATH + "styles.csv", nrows=200, error_bad_lines=True)
+df = pd.read_csv(DATASET_PATH + "styles.csv", nrows=20000, error_bad_lines=False)
 df['image'] = df.apply(lambda row: str(row['id']) + ".jpg", axis=1)
 df['usage'] = df['usage'].astype('str')
+df['season'] = df['season'].astype('str')
 df = df.sample(frac=1).reset_index(drop=True)
 
 print("Head styles.csv")
@@ -35,7 +36,7 @@ training_generator = image_generator.flow_from_dataframe(
     dataframe=df,
     directory=DATASET_PATH + "images",
     x_col="image",
-    y_col="usage",
+    y_col="season",
     target_size=(IMAGE_SIZE, IMAGE_SIZE),
     batch_size=BATCH_SIZE,
     subset="training"
@@ -45,7 +46,7 @@ validation_generator = image_generator.flow_from_dataframe(
     dataframe=df,
     directory=DATASET_PATH + "images",
     x_col="image",
-    y_col="usage",
+    y_col="season",
     target_size=(IMAGE_SIZE, IMAGE_SIZE),
     batch_size=BATCH_SIZE,
     subset="validation"
@@ -82,7 +83,7 @@ model.fit_generator(
     validation_data=validation_generator,
     validation_steps=ceil(validation_generator.samples / BATCH_SIZE),
     
-    epochs=1,
+    epochs=2,
     verbose=1
 )
 
