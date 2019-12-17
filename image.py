@@ -66,6 +66,7 @@ x = base_model.output
 x = GlobalAveragePooling2D()(x)
 x = Dropout(DROPOUT_PROB)(x)
 x = Dense(1024, activation='relu')(x)
+x = Dropout(DROPOUT_PROB)(x)
 predictions = Dense(NUM_CLASSES, activation='softmax')(x)
 
 model = Model(inputs=base_model.input, outputs=predictions)
