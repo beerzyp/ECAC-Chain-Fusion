@@ -88,6 +88,7 @@ x = Sequential()(x)
 x = Dense(12, activation='relu')(x)
 x = Dropout(DROPOUT_PROB)(x)
 x = Dense(8, activation='relu')(x)
+x = Dropout(DROPOUT_PROB)(x)
 predictions = Dense(NUM_CLASSES, activation='softmax')(x)
 
 model = Model(inputs=[base_model1.input, base_model2], outputs=predictions) # Inputs go into two different layers

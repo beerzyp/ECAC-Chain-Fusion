@@ -42,6 +42,7 @@ model = Sequential()
 model.add(Dense(12, input_dim=len(X.columns), activation='relu'))
 model.add(Dropout(DROPOUT_PROB))
 model.add(Dense(8, activation='relu'))
+model.add(Dropout(DROPOUT_PROB))
 model.add(Dense(NUM_CLASSES, activation='softmax'))
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
