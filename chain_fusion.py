@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import tensorflow as tf
 import os
 import keras
 from keras.models import Sequential, Model
@@ -8,19 +9,25 @@ from keras.applications.vgg16 import VGG16
 from sklearn.model_selection import train_test_split
 from data_generator import MultimodalDataGenerator
 from math import ceil
+import datetime
+# If using Nvidia gpu and running into memory issues
+#gpus = tf.config.experimental.list_physical_devices('GPU')
+#tf.config.experimental.set_memory_growth(gpus[0], True)
+#tf.TF_ENABLE_GPU_GARBAGE_COLLECTION=False
 
 BATCH_SIZE = 32
 IMAGE_SIZE = 224
 NUM_CLASSES = 5
 DROPOUT_PROB = 0.2
 DATASET_PATH = "data/"
-TABULAR_COLS = ['gender', 'masterCategory', 'subCategory', 'articleType', 'baseColour', 'season', 'year']
+LOG_PATH = "log/"
+TABULAR_COLS = ['gender', 'masterCategory', 'subCategory', 'articleType', 'baseColour', 'season']
+log_name = LOG_PATH + str(datetime.datetime.today().strftime("%Y%m%d%H%M%S")) + ".txt"
 
 # Read CSV file
-df = pd.read_csv(DATASET_PATH + "styles.csv", nrows=200, error_bad_lines=True)
+df = pd.read_csv(DATASET_PATH + "prepared_data.csv", nrows=100, error_bad_lines=False)
 df['image'] = df.apply(lambda row: str(row['id']) + ".jpg", axis=1)
 df['usage'] = df['usage'].astype('str')
-
 images = df['image']
 tabular = pd.get_dummies(df[TABULAR_COLS])
 labels = pd.get_dummies(df['usage'])
@@ -94,9 +101,12 @@ predictions = Dense(NUM_CLASSES, activation='softmax')(x)
 model = Model(inputs=[base_model1.input, base_model2], outputs=predictions) # Inputs go into two different layers
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-print(model.summary())
+log_file = open(log_name, 'w')
+summary = model.summary(print_fn=lambda x: log_file.write(x + '\n'))
+log_file.close()
+print(summary)
 
-model.fit_generator(
+history = model.fit_generator(
     generator=training_generator,
     steps_per_epoch=ceil(0.75 * (df.size / BATCH_SIZE)),
 
@@ -106,5 +116,7 @@ model.fit_generator(
     epochs=1,
     verbose=1
 )
-
+hist_df = pd.DataFrame(history.history)
+hist_df.to_csv(log_name, mode='a', header=True)
 model.save('weights/chain_fusion.h5')
+log_file.close()
