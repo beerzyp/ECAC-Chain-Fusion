@@ -24,7 +24,8 @@ TABULAR_COLS = ['gender', 'masterCategory', 'subCategory', 'articleType', 'baseC
 log_name = LOG_PATH + str(datetime.datetime.today().strftime("%Y%m%d%H%M%S")) + ".txt"
 
 # Read CSV file
-df = pd.read_csv(DATASET_PATH + "prepared_data.csv", nrows=100, error_bad_lines=False)
+#df = pd.read_csv(DATASET_PATH + "prepared_data.csv", error_bad_lines=False)
+df = pd.read_csv(DATASET_PATH + "balanced_data.csv", error_bad_lines=False)
 df['image'] = df.apply(lambda row: str(row['id']) + ".jpg", axis=1)
 df['usage'] = df['usage'].astype('str')
 images = df['image']
@@ -92,9 +93,9 @@ x = concatenate([x1, base_model2])
 
 # The same as in the tabular data
 x = Sequential()(x)
-x = Dense(12, activation='relu')(x)
+x = Dense(x.shape[1], activation='relu')(x) #12
 x = Dropout(DROPOUT_PROB)(x)
-x = Dense(8, activation='relu')(x)
+x = Dense(ceil(x.shape[1]/2), activation='relu')(x) #8
 x = Dropout(DROPOUT_PROB)(x)
 predictions = Dense(NUM_CLASSES, activation='softmax')(x)
 
@@ -113,7 +114,7 @@ history = model.fit_generator(
     validation_data=test_generator,
     validation_steps=ceil(0.25 * (df.size / BATCH_SIZE)),
 
-    epochs=1,
+    epochs=4,
     verbose=1
 )
 hist_df = pd.DataFrame(history.history)

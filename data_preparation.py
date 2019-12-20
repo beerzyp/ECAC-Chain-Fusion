@@ -39,7 +39,7 @@ plt.show()
 # Usage
 df.usage.value_counts().sort_values().plot(kind='barh')
 plt.show()
-'''
+
 ## Data Preparation
 # Balacing label samples
 num_of_samples = len(df[df.season == 'Spring'])
@@ -55,5 +55,5 @@ final_df = pd.concat(frames)
 
 final_df.season.value_counts().sort_values().plot(kind='barh')
 plt.show()
-
-final_df.to_csv(SAVE_PATH, index=False)
+'''
+df.to_csv(SAVE_PATH, index=False)
