@@ -17,11 +17,10 @@ import datetime
 
 BATCH_SIZE = 32
 IMAGE_SIZE = 224
-NUM_CLASSES = 5
 DROPOUT_PROB = 0.2
 DATASET_PATH = "data/"
 LOG_PATH = "log/"
-TABULAR_COLS = ['gender', 'masterCategory', 'subCategory', 'articleType', 'baseColour', 'season']
+TABULAR_COLS = ['gender', 'masterCategory', 'subCategory', 'articleType', 'baseColour', 'usage']
 log_name = LOG_PATH + str(datetime.datetime.today().strftime("%Y%m%d%H%M%S")) + ".txt"
 
 # Read CSV file
@@ -30,8 +29,9 @@ df['image'] = df.apply(lambda row: str(row['id']) + ".jpg", axis=1)
 df['usage'] = df['usage'].astype('str')
 images = df['image']
 tabular = pd.get_dummies(df[TABULAR_COLS])
-labels = pd.get_dummies(df['usage'])
+labels = pd.get_dummies(df['season'])
 
+NUM_CLASSES = len(labels.columns)
 dummy_tabular_cols = tabular.columns
 dummy_labels_cols = labels.columns
 
