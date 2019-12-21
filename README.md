@@ -9,7 +9,16 @@
 
 ###  Notes
 
-a imagem entra num cnn e vai para outra red
+Descrever multimodal
+Descrever várias fase do multimodal (resumido)
+Descrever a fase de foco (fusion)
+    -Existe early, late and deep fusion
+Queremos propor uma nova forma de fazer Fusion (Chain Fusion)
+Dizer que a nossa proposta é inspirada nos Chain classifiers
+
+https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8269806&fbclid=IwAR1C_TKJXvLIdOsgkOiwX_A10pZocHEiBOvhgwjeYgWiTf9B7_N3PiszMQM&tag=1
+
+A imagem entra num cnn e vai para outra red
 
 ->treinar image.py que entra numa rede . 
 ->treinar o tabular.py e retirar as features
