@@ -1,17 +1,38 @@
 
+# Project Description: Grupo: T02-09
 
-Dataset: https://www.kaggle.com/paramaggarwal/fashion-product-images-small (copy 'styles.csv' and 'images' folder into 'data' folder)
+### Initial:
 
-Image classifier tutorial: https://www.kaggle.com/paramaggarwal/fashion-product-images-classifier
-
-T02-09
-Achieve a gold description using co-learning: (1) http://vsubhashini.github.io/language_fusion.html (Improving LSTM-based Video Description with Linguistic Knowledge Mined from Text); (2) Taking this problem as a base work, improve by using sound to improve the LSTM model (RNN model); (3) Mainly, for application, taking in considerations the nouns of the description, see if it's truth by the sounds that are made to achieve a better gold description.
-
-installpackages:
-sudo pip3 install keras
-sudo pip3 install tensorflow
+    Follow the discusion in classes we decide to propose a new form to make fusion.
+    Definition of fusion
 
 
+###  Notes
+
+a imagem entra num cnn e vai para outra red
+
+->treinar image.py que entra numa rede . 
+->treinar o tabular.py e retirar as features
+-> Juntar os dois
+
+
+late fusion:
+treinar image.py uma cnn -vgg16
+treinar o tabular.py  - smodelo sequencial implementado
+os dois inputs  numa camada superior que junta as duas informações
+
+
+Chain fusion:
+treinar image.py uma cnn -vgg16
+Recebe o ultimo input + o tabular.py (nao treinado ainda/sem pesos)
+
+
+# OverLeaf Paper Link:
+
+    https://www.overleaf.com/1224357339fvmfywcnsrqp
+
+
+# Index
 
 1. Bags_of_words.py -> gera o vocab.txt 
 2. data_preraration.py  -> gera o prepared_data.csv
@@ -21,45 +42,26 @@ sudo pip3 install tensorflow
 6. chain_fusion.py - esta neste momento a fazer fusion com o tabular.py e o image.py
 
 
-pip3 install -r requirements.txt
+# Used datase:
+
+    https://www.kaggle.com/paramaggarwal/fashion-product-images-small 
+    
+    
+Note: (copy 'styles.csv' and 'images' folder into 'data' folder)
+
+# Tutorial: 
+
+    https://www.kaggle.com/paramaggarwal/fashion-product-images-classifier
 
 
+# Run
 
+    $ pip3 install -r requirements.txt
+    $ python3 chain_fusion.py
 
-
- _____________INITAl WORK _____________--
-
-# audio-classifier-keras-cnn
-Audio Classifier in Keras using Convolutional Neural Network
-
-*DISCLAIMER: This code is not being maintained.  Your Issues will be ignored.   For up-to-date code, switch over to [Panotti](https://github.com/drscotthawley/panotti).*
-
-
-O que fazer
-    Audio Classification
-        Feature Extraction -> CNN used
-    Video Classification
-        Feature Extraction -> also CNN
-    Fusion
-        Merging audio and video features
 
 
 EXAMPLE: https://github.com/drscotthawley/audio-classifier-keras-cnn
-
-# Project Description 
-
-Achieve a gold description using co-learning:
-
-1. http://vsubhashini.github.io/language_fusion.html (Improving LSTM-based Video Description with Linguistic Knowledge Mined from Text); 
-2. Taking this problem as a base work, improve by using sound to improve the LSTM model (RNN model); 
-3.  Mainly, for application, taking in considerations the nouns of the description, see if it's truth by the sounds that are made to achieve a better gold description
-
-
-
-# Videos Tutorial:
-
-[RNN](https://www.youtube.com/watch?v=_h66BW-xNgk&t=657s])
-
 
 
 
