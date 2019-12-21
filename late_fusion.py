@@ -25,7 +25,7 @@ log_name = LOG_PATH + str(datetime.datetime.today().strftime("%Y%m%d%H%M%S")) + 
 
 # Read CSV file
 #df = pd.read_csv(DATASET_PATH + "prepared_data.csv", error_bad_lines=False)
-df = pd.read_csv(DATASET_PATH + "balanced_data.csv", error_bad_lines=False)
+df = pd.read_csv(DATASET_PATH + "balanced_data.csv", nrows=100, error_bad_lines=False)
 df['image'] = df.apply(lambda row: str(row['id']) + ".jpg", axis=1)
 df['usage'] = df['usage'].astype('str')
 images = df['image']
@@ -116,6 +116,17 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accur
 
 summary = model.summary(print_fn=lambda x: log_file.write(x + '\n'))
 
+callbacks = [
+    keras.callbacks.EarlyStopping(
+        # Stop training when `val_loss` is no longer improving
+        monitor='val_loss',
+        # "no longer improving" being defined as "no better than 1e-2 less"
+        min_delta=1e-2,
+        # "no longer improving" being further defined as "for at least 2 epochs"
+        patience=2,
+        verbose=1)
+]
+
 history = model.fit_generator(
     generator=training_generator,
     steps_per_epoch=ceil(0.75 * (df.size / BATCH_SIZE)),
@@ -124,6 +135,7 @@ history = model.fit_generator(
     validation_steps=ceil(0.25 * (df.size / BATCH_SIZE)),
 
     epochs=4,
+    callbacks=callbacks,
     verbose=1
 )
 
