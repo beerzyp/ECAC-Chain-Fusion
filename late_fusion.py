@@ -11,9 +11,9 @@ from data_generator import MultimodalDataGenerator
 from math import ceil
 import datetime
 # If using Nvidia gpu and running into memory issues
-#gpus = tf.config.experimental.list_physical_devices('GPU')
-#tf.config.experimental.set_memory_growth(gpus[0], True)
-#tf.TF_ENABLE_GPU_GARBAGE_COLLECTION=False
+gpus = tf.config.experimental.list_physical_devices('GPU')
+tf.config.experimental.set_memory_growth(gpus[0], True)
+tf.TF_ENABLE_GPU_GARBAGE_COLLECTION=False
 
 BATCH_SIZE = 32
 IMAGE_SIZE = 224
@@ -74,7 +74,6 @@ test_generator = MultimodalDataGenerator(
     directory=DATASET_PATH + "images/"
 )
 
-
 # Build image model
 base_model1 = VGG16(weights='imagenet', include_top=False, input_shape=(IMAGE_SIZE, IMAGE_SIZE, 3))
 
@@ -85,13 +84,25 @@ x1 = base_model1.output
 x1 = GlobalAveragePooling2D()(x1)
 x1 = Dropout(DROPOUT_PROB)(x1)
 
-# Add simple input layer for tabular data
-base_model2 = Input(batch_shape=(None, len(train_tabular.columns)))
+log_file = open(log_name, 'w')
+log_file.write('VGG/Tabular Late Fusion \n')
 
-# CHAIN FUSION
-x = concatenate([x1, base_model2])
+base_model1.summary(print_fn=lambda x: log_file.write(x + '\n\n'))
 
-# The same as in the tabular data
+# Build tabular model
+base_model2 = Sequential()
+base_model2.add(Dense(12, input_dim=len(dummy_tabular_cols), activation='relu'))
+base_model2.add(Dropout(DROPOUT_PROB))
+base_model2.add(Dense(8, activation='relu'))
+base_model2.add(Dropout(DROPOUT_PROB))
+base_model2.add(Dense(NUM_CLASSES, activation='softmax'))
+base_model2.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+
+base_model2.summary(print_fn=lambda x: log_file.write(x + '\n\n'))
+x2 = base_model2.output
+
+# LATE FUSION
+x = concatenate([x1, x2])
 x = Sequential()(x)
 x = Dense(x.shape[1], activation='relu')(x) #12
 x = Dropout(DROPOUT_PROB)(x)
@@ -99,15 +110,11 @@ x = Dense(ceil(x.shape[1]/2), activation='relu')(x) #8
 x = Dropout(DROPOUT_PROB)(x)
 predictions = Dense(NUM_CLASSES, activation='softmax')(x)
 
-'''
-model = Model(inputs=[base_model1.input, base_model2], outputs=predictions) # Inputs go into two different layers
+
+model = Model(inputs=[base_model1.input, base_model2.input], outputs=predictions) # Inputs go into two different layers
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-log_file = open(log_name, 'w')
-log_file.write('VGG->Tabular Chain Fusion \n')
 summary = model.summary(print_fn=lambda x: log_file.write(x + '\n'))
-log_file.close()
-print(summary)
 
 history = model.fit_generator(
     generator=training_generator,
@@ -121,7 +128,7 @@ history = model.fit_generator(
 )
 
 hist_df = pd.DataFrame(history.history)
-hist_df.to_csv(log_name, mode='a', header=True)
-model.save('weights/chain_fusion.h5')
 log_file.close()
-'''
+hist_df.to_csv(log_name, mode='a', header=True)
+model.save('weights/late_fusion.h5')
+log_file.close()
