@@ -25,7 +25,7 @@ log_name = LOG_PATH + str(datetime.datetime.today().strftime("%Y%m%d%H%M%S")) + 
 
 # Read CSV file
 #df = pd.read_csv(DATASET_PATH + "prepared_data.csv", error_bad_lines=False)
-df = pd.read_csv(DATASET_PATH + "balanced_data.csv", nrows=100, error_bad_lines=False)
+df = pd.read_csv(DATASET_PATH + "balanced_sorted.csv", nrows=100, error_bad_lines=False)
 df['image'] = df.apply(lambda row: str(row['id']) + ".jpg", axis=1)
 df['usage'] = df['usage'].astype('str')
 images = df['image']
@@ -134,7 +134,7 @@ history = model.fit_generator(
     validation_data=test_generator,
     validation_steps=ceil(0.25 * (df.size / BATCH_SIZE)),
 
-    epochs=4,
+    epochs=10,
     callbacks=callbacks,
     verbose=1
 )
