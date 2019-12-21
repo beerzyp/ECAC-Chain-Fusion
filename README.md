@@ -16,6 +16,13 @@ Descrever a fase de foco (fusion)
 Queremos propor uma nova forma de fazer Fusion (Chain Fusion)
 Dizer que a nossa proposta é inspirada nos Chain classifiers
 
+Correr os bencharmks originais
+Temos late fusion com tabular e image - benchmark
+Temos chain fusion benchmark (coorre o vgg normalmente e juntas numa rede)
+->Late fusion com tres: imagem & tabular & texto(NPL)
+->Late fusion tabular & imagem  
+->Late fusion imagem NPL
+->
 https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8269806&fbclid=IwAR1C_TKJXvLIdOsgkOiwX_A10pZocHEiBOvhgwjeYgWiTf9B7_N3PiszMQM&tag=1
 
 A imagem entra num cnn e vai para outra red
@@ -78,6 +85,18 @@ EXAMPLE: https://github.com/drscotthawley/audio-classifier-keras-cnn
 # Main Paper
 
 Improving LSTM-based Video Description with Linguistic Knowledge Mined from Text LINK: https://arxiv.org/abs/1604.01729
+
+## Selected Papers
+
+ - [Multimodal Machine Learning: A Survey and Taxonomy](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8269806&fbclid=IwAR1C_TKJXvLIdOsgkOiwX_A10pZocHEiBOvhgwjeYgWiTf9B7_N3PiszMQM&tag=1)
+
+        -Instead of focusing on specific multimodal applications, this paper surveys the recent advances in multimodal machine learning itself and presents them in a common taxonomy. We go beyond the typical early and late fusion categorization and identify broader challenges that are faced by multimodal machine learning, namely: representation, translation, alignment, fusion, and co-learning.
+
+ - [Sense adaptive multimodal information fusion: A proposed model](https://ieeexplore.ieee.org/document/7725004)
+
+        -Describes three broad categories of multimodal fusion extensively used viz. early, late and transmedia fusion.
+        keyword: multimodal fusion
+
 
 ## Notes
 
