@@ -10,6 +10,7 @@ import random
 from numpy import array
 from pandas import DataFrame
 from matplotlib import pyplot
+from bag_of_words import clean_doc
 
 nltk.download('stopwords')
 
@@ -42,9 +43,9 @@ def evaluate_mode(X_train, y_train, X_test, y_test):
         # compile network
         model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
         # fit network
-        model.fit(X_train, y_train, epochs=5, verbose=2)
+        model.fit(X_train, y_train, epochs=5, verbose=1)
         # evaluate
-        loss, acc = model.evaluate(X_test, y_test, verbose=0)
+        loss, acc = model.evaluate(X_test, y_test, verbose=1)
         scores.append(acc)
         print('%d accuracy: %s' % ((i+1), acc))
     return scores
