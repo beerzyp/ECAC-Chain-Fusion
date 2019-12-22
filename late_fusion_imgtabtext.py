@@ -29,6 +29,7 @@ df = pd.read_csv(DATASET_PATH + "balanced_sorted.csv", nrows=100, error_bad_line
 # Image and Tabular pre-processing
 df['image'] = df.apply(lambda row: str(row['id']) + ".jpg", axis=1)
 df['usage'] = df['usage'].astype('str')
+
 images = df['image']
 tabular = pd.get_dummies(df[TABULAR_COLS])
 labels = pd.get_dummies(df['season'])
@@ -43,7 +44,7 @@ vocab = file.read()
 file.close()
 vocab = vocab.split()
 vocab = set(vocab)
-sentences = df['productDisplayName'].values.tolist()
+sentences = df['productDisplayName'].astype('str').values.tolist()
 usage = pd.get_dummies(df['season'])
 usage = usage.values.tolist()
 tokenizer = Tokenizer()
