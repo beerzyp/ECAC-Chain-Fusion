@@ -3,9 +3,10 @@ import keras
 from keras.preprocessing.image import load_img, img_to_array
 
 class MultimodalDataGenerator(keras.utils.Sequence) :
-    def __init__(self, images, tabular, labels, batch_size, target_size, directory) :
+    def __init__(self, images, tabular, text, labels, batch_size, target_size, directory) :
         self.images = images
         self.tabular = tabular
+        self.text = text
         self.labels = labels
         self.batch_size = batch_size
         self.target_size = target_size
@@ -23,6 +24,8 @@ class MultimodalDataGenerator(keras.utils.Sequence) :
         )
         batch_tabular = self.tabular.iloc[idx * self.batch_size : (idx+1) * self.batch_size]
 
+        batch_text = self.text.iloc[idx * self.batch_size : (idx+1) * self.batch_size]
+
         batch_y = self.labels.iloc[idx * self.batch_size : (idx+1) * self.batch_size]
 
-        return [batch_image, batch_tabular], batch_y
+        return [batch_image, batch_tabular, batch_text], batch_y
