@@ -16,10 +16,9 @@ nltk.download('stopwords')
 
 # load doc, clean and return line of tokens
 def doc_to_line(filename, vocab):
-    # load the doc
     doc = load_doc(filename)
-    # clean doc
     tokens = clean_doc(doc)
+
     # filter by vocab
     tokens = [w for w in tokens if w in vocab]
     return ' '.join(tokens)
@@ -36,22 +35,57 @@ def evaluate_mode(X_train, y_train, X_test, y_test):
     n_repeats = 2
     n_words = X_test.shape[1]
     for i in range(n_repeats):
-        # define network
-        model = Sequential()
-        model.add(Dense(50, input_shape=(n_words,), activation='relu'))
-        model.add(Dense(4, activation='sigmoid'))
-        # compile network
-        model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+        model = get_model(n_words)
+
         # fit network
         model.fit(X_train, y_train, epochs=5, verbose=1)
+
         # evaluate
         loss, acc = model.evaluate(X_test, y_test, verbose=1)
         scores.append(acc)
         print('%d accuracy: %s' % ((i+1), acc))
+
     return scores
 
-if __name__ == "__main__":
+def get_model(n_words):
+    # define network
+    model = Sequential()
+    model.add(Dense(50, input_shape=(n_words,), activation='relu'))
+    model.add(Dense(4, activation='sigmoid'))
+
+    # compile network
+    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+    return model
+
+def get_data(data):
+
     # load the vocabulary
+    vocab_filename = 'data/vocab.txt'
+    vocab = load_doc(vocab_filename)
+    vocab = vocab.split()
+    vocab = set(vocab)
+    sentences = data['productDisplayName'].values.tolist()
+    usage = pd.get_dummies(data['season'])
+    usage = usage.values.tolist()
+
+    # create the tokenizer
+    tokenizer = Tokenizer()
+    tokenizer.fit_on_texts(sentences)
+
+    #construct train and test data
+    split_num = int(len(sentences) * 0.7)
+    train_data = sentences[:split_num]
+    test_data = sentences[split_num:]
+    y_train = array(usage[:split_num])
+    y_test = array(usage[split_num:])
+    X_train = tokenizer.texts_to_matrix(train_data, mode=mode)
+    X_test = tokenizer.texts_to_matrix(test_data, mode=mode)
+
+    return X_train, X_test, y_train, y_test
+
+if __name__ == "__main__":
+
     vocab_filename = 'data/vocab.txt'
     vocab = load_doc(vocab_filename)
     vocab = vocab.split()
@@ -104,6 +138,7 @@ if __name__ == "__main__":
 
     # summarize results
     print(results.describe())
+
     # plot results
     results.boxplot()
     pyplot.show()
