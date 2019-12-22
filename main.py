@@ -8,7 +8,7 @@ def main():
         elif arguments[1] == 'tabular':
             print("Err: tabular can't be the first modality of chain fusion.\nTry main [chain_fusion] [image|tabular|text] | [text|tabular|image]")
         else:
-            print("main chain_fusion [tabular|image|text] must me given atleast 2 different modalities")
+            print("main chain_fusion [tabular|image|text] must be given atleast 2 different modalities")
     elif arguments[0] == 'late_fusion':
         if (arguments[1] == 'image' and arguments[2] == 'tabular') or (arguments[1] == 'tabular' and arguments[2] == 'image'):
             import late_fusion_imgtab
