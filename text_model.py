@@ -38,7 +38,7 @@ def evaluate_mode(X_train, y_train, X_test, y_test):
         # define network
         model = Sequential()
         model.add(Dense(50, input_shape=(n_words,), activation='relu'))
-        model.add(Dense(8, activation='sigmoid'))
+        model.add(Dense(4, activation='sigmoid'))
         # compile network
         model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
         # fit network
@@ -59,7 +59,7 @@ if __name__ == "__main__":
     data = pd.read_csv('data/styles.csv', error_bad_lines=False)
 
     sentences = data['productDisplayName'].values.tolist()
-    usage = pd.get_dummies(data['usage'])
+    usage = pd.get_dummies(data['season'])
     usage = usage.values.tolist()
     index_to_remove = []
 
