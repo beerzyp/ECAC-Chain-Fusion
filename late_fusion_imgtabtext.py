@@ -8,7 +8,7 @@ from keras.layers import GlobalAveragePooling2D, Dense, Input, Dropout, concaten
 from keras.applications.vgg16 import VGG16
 from keras.preprocessing.text import Tokenizer
 from sklearn.model_selection import train_test_split
-from data_generator import MultimodalDataGenerator
+from data_generator import TextMultimodalDataGenerator
 from math import ceil
 import datetime
 # If using Nvidia gpu and running into memory issues
@@ -68,7 +68,7 @@ train_tabular = train[dummy_tabular_cols]
 train_text = train[dummy_text_cols]
 train_labels = train[dummy_labels_cols]
 
-training_generator = MultimodalDataGenerator(
+training_generator = TextMultimodalDataGenerator(
     train_images,
     train_tabular,
     train_text,
@@ -83,7 +83,7 @@ test_tabular = test[dummy_tabular_cols]
 test_text = test[dummy_text_cols]
 test_labels = test[dummy_labels_cols]
 
-test_generator = MultimodalDataGenerator(
+test_generator = TextMultimodalDataGenerator(
     test_images,
     test_tabular,
     test_text,
