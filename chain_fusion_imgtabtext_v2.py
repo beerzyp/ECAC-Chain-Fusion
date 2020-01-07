@@ -126,7 +126,16 @@ x3 = Dropout(DROPOUT_PROB)(x3)
 n_words = text.shape[1]
 input_text = Input(batch_shape=(None, len(train_text.columns)))
 
-x = concatenate([x3, input_text])
+model_text = Sequential()
+model_text.add(Dense(50, input_shape=(n_words,), activation='relu'))
+
+# compile network
+model_text.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+x4 = model_text.output
+x4 = Dropout(DROPOUT_PROB)(x4)
+
+x = concatenate([x3, x4])
 
 # The same as in the tabular data
 x = Sequential()(x)
@@ -136,7 +145,7 @@ x = Dense(ceil(x.shape[1]/2), activation='relu')(x) #8
 x = Dropout(DROPOUT_PROB)(x)
 predictions = Dense(NUM_CLASSES, activation='softmax')(x)
 
-model = Model(inputs=[base_model1.input, input_tab, input_text], outputs=predictions) # Inputs go into two different layers
+model = Model(inputs=[base_model1.input, input_tab, model_text.input], outputs=predictions) # Inputs go into two different layers
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 print(model.summary())
