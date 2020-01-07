@@ -112,25 +112,18 @@ input_tab = Input(batch_shape=(None, len(train_tabular.columns)))
 
 # CHAIN FUSION WITH TABULAR
 x2 = concatenate([x1, input_tab])
-predictions = Dense(x2.shape[1], activation='relu')(x2)
-
-base_model2 = Model(inputs=[base_model1.input, input_tab], outputs=predictions)
-base_model2.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-
-print(base_model2.summary())
-
-x3 = base_model2.output
-x3 = Dropout(DROPOUT_PROB)(x3)
+x2 = Dense(x2.shape[1], activation='relu')(x2)
+x2 = Dropout(DROPOUT_PROB)(x2)
 
 # Build text model
 n_words = text.shape[1]
 input_text = Input(batch_shape=(None, len(train_text.columns)))
 
-x = concatenate([x3, input_text])
+x = concatenate([x2, input_text])
 
 # The same as in the tabular data
 x = Sequential()(x)
-x = Dense(x.shape[1], activation='relu')(x) #12
+x = Dense(x.shape[1], input_shape=(n_words,), activation='relu')(x) #12
 x = Dropout(DROPOUT_PROB)(x)
 x = Dense(ceil(x.shape[1]/2), activation='relu')(x) #8
 x = Dropout(DROPOUT_PROB)(x)
