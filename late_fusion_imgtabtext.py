@@ -12,9 +12,9 @@ from data_generator import TextMultimodalDataGenerator
 from math import ceil
 import datetime
 # If using Nvidia gpu and running into memory issues
-gpus = tf.config.experimental.list_physical_devices('GPU')
-tf.config.experimental.set_memory_growth(gpus[0], True)
-tf.TF_ENABLE_GPU_GARBAGE_COLLECTION=False
+# gpus = tf.config.experimental.list_physical_devices('GPU')
+# tf.config.experimental.set_memory_growth(gpus[0], True)
+# tf.TF_ENABLE_GPU_GARBAGE_COLLECTION=False
 
 BATCH_SIZE = 32
 IMAGE_SIZE = 224
@@ -144,6 +144,7 @@ predictions = Dense(NUM_CLASSES, activation='softmax')(x)
 model = Model(inputs=[base_model1.input, base_model2.input, base_model3.input], outputs=predictions) # Inputs go into two different layers
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
+print(model.summary())
 summary = model.summary(print_fn=lambda x: log_file.write(x + '\n'))
 
 callbacks = [
