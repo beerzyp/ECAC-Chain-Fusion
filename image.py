@@ -19,7 +19,7 @@ print("DATASET_PATH content")
 print(os.listdir(DATASET_PATH))
 
 # Read CSV file
-df = pd.read_csv(DATASET_PATH + "styles.csv", nrows=20000, error_bad_lines=False)
+df = pd.read_csv(DATASET_PATH + "styles.csv", nrows=None, error_bad_lines=False)
 df['image'] = df.apply(lambda row: str(row['id']) + ".jpg", axis=1)
 df['usage'] = df['usage'].astype('str')
 df['season'] = df['season'].astype('str')

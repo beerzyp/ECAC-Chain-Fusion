@@ -8,15 +8,16 @@ from sklearn.model_selection import train_test_split
 from math import ceil
 
 BATCH_SIZE = 32
-NUM_CLASSES = 5
+NUM_CLASSES = 4
 DROPOUT_PROB = 0.2
 DATASET_PATH = "data/"
+TABULAR_COLS = ['gender', 'masterCategory', 'subCategory', 'articleType', 'baseColour', 'usage']
 
 print("DATASET_PATH content")
 print(os.listdir(DATASET_PATH))
 
 # Read CSV file
-df = pd.read_csv(DATASET_PATH + "styles.csv", nrows=200, error_bad_lines=False)
+df = pd.read_csv(DATASET_PATH + "styles.csv", nrows=None, error_bad_lines=False)
 df['usage'] = df['usage'].astype('str')
 df = df.sample(frac=1).reset_index(drop=True)
 
@@ -25,8 +26,8 @@ print(df.head(10))
 
 
 
-X = df[['gender', 'masterCategory', 'subCategory', 'articleType', 'baseColour', 'season', 'year']]
-y = df['usage']
+X = df[TABULAR_COLS]
+y = df['season']
 
 X = pd.get_dummies(X)
 y = pd.get_dummies(y)
