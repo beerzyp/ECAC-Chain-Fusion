@@ -1,46 +1,8 @@
+Research in Multimodal Machine Learning has been growing in importance and interest, because it can provide major advantages and results, when compared to unimodal approaches. Methods in this area have reached fields like multimedia classification, audiovisual automatic speech recognition, generation of natural language descriptions of videos, among other applications.
+
+This project introduces a new method to handle multimodal tasks, to which we call Chain Fusion. We provide the main theoretical properties of our method, comparing it to current approaches, such as early and Late Fusion. We also developed an empirical study where we compare unimodal learners, Late Fusion and Chain Fusion. Results show that our method is able to reach performance levels as good or even better than previous methods used in this field.
 
 
-
-_____________INITAl WORK _____________--
-
-# audio-classifier-keras-cnn
-Audio Classifier in Keras using Convolutional Neural Network
-
-*DISCLAIMER: This code is not being maintained.  Your Issues will be ignored.   For up-to-date code, switch over to [Panotti](https://github.com/drscotthawley/panotti).*
-
-
-O que fazer
-    Audio Classification
-        Feature Extraction -> CNN used
-    Video Classification
-        Feature Extraction -> also CNN
-    Fusion
-        Merging audio and video features
-
-
-EXAMPLE: https://github.com/drscotthawley/audio-classifier-keras-cnn
-
-# Project Description 
-
-Achieve a gold description using co-learning:
-
-1. http://vsubhashini.github.io/language_fusion.html (Improving LSTM-based Video Description with Linguistic Knowledge Mined from Text); 
-2. Taking this problem as a base work, improve by using sound to improve the LSTM model (RNN model); 
-3.  Mainly, for application, taking in considerations the nouns of the description, see if it's truth by the sounds that are made to achieve a better gold description
-
-
-
-# Videos Tutorial:
-
-[RNN](https://www.youtube.com/watch?v=_h66BW-xNgk&t=657s])
-
-
-
-
-
-# Main Paper
-
-Improving LSTM-based Video Description with Linguistic Knowledge Mined from Text LINK: https://arxiv.org/abs/1604.01729
 
 ## Notes
 
@@ -105,27 +67,6 @@ https://musicinformationretrieval.com/mfcc.html (Librosa conversion)
 
 Contains classification of the audio
 
-### Microsoft Video Description Dataset (Youtube videos):
-
-2. Main paper datasets used
-
-[MPII Movie Description (MPII-MD) Dataset](http://www.mpi-inf.mpg.de/movie-description)
-
-[Montreal Video Annotation Description (M-VAD) Dataset](http://www.mila.umontreal.ca/Home/public-datasets/montreal-video-annotation-dataset)
-
-# Concepts
-
-1. RNN: recurrent Neural Network
-2. Long short-term memory (LSTM) is an artificial recurrent neural network (RNN) architecture[1] used in the field of deep learning. Unlike standard feedforward neural networks, LSTM has feedback connections. It can not only process single data points (such as images), but also entire sequences of data (such as speech or video). For example, LSTM is applicable to tasks such as unsegmented, connected handwriting recognition[2], speech recognition[3][4] and anomaly detection in network traffic or IDS's (intrusion detection systems). A common LSTM unit is composed of a cell, an input gate, an output gate and a forget gate. The cell remembers values over arbitrary time intervals and the three gates regulate the flow of information into and out of the cell. Source: https://en.wikipedia.org/wiki/Long_short-term_memory
-3. Machine Translation (MT): sometimes referred to by the abbreviation MT (not to be confused with computer-aided translation, machine-aided human translation (MAHT) or interactive translation) is a sub-field of computational linguistics that investigates the use of software to translate text or speech from one language to another. Source: https://en.wikipedia.org/wiki/Machine_translation
-4. Language Models (LMs):A statistical language model is a probability distribution over sequences of words. Given such a sequence, say of length m, it assigns a probability P ( w 1 , … , w m ) {\displaystyle P(w_{1},\ldots ,w_{m})}  to the whole sequence. The language model provides context to distinguish between words and phras that sound similar. For example, in American English, the phrases "recognize speech" and "wreck a nice beach" sound similar, but mean different things.
-5. S2VT: uses a sequence to sequence approach that maps an input ~x = (x 1 , ... , x T ) video frame feature sequence to a fixed dimensional vector and then decodes this into a sequence of output words ~y = (y 1 , ... , y N ). Source: Main Paper
-Convolutional Neural Network (CNN):
-
-
-
-
-
 
 # Presentation ideas
 
@@ -138,9 +79,6 @@ In practice, using an ensemble of networks trained slightly differently can impr
 We choose Late Fusion approach
  
 
-
-
-
 # How to run
 1. Download AudioSet dataset
     * Each folder represents a class
@@ -150,10 +88,4 @@ We choose Late Fusion approach
     * Command: `python3 preprocess_data.py`
 3. Train Network (Audio only)
     * Command: `python3 train_network.py`
-    
-Future Work:
-
-* Convert mp4 files from AudioSet to .wav files and use these to train the network
-* Evaluate Results
-* Add images from the video to this analysis (re-train network)
-* Evaluate Results
+   
