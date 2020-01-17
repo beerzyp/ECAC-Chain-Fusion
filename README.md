@@ -1,7 +1,104 @@
 Research in Multimodal Machine Learning has been growing in importance and interest, because it can provide major advantages and results, when compared to unimodal approaches. Methods in this area have reached fields like multimedia classification, audiovisual automatic speech recognition, generation of natural language descriptions of videos, among other applications.
 
-This project introduces a new method to handle multimodal tasks, to which we call Chain Fusion. We provide the main theoretical properties of our method, comparing it to current approaches, such as early and Late Fusion. We also developed an empirical study where we compare unimodal learners, Late Fusion and Chain Fusion. Results show that our method is able to reach performance levels as good or even better than previous methods used in this field.
 
+# Project Description: Grupo: T02-09
+
+### Initial:
+
+
+    Follow the discusion in classes we decide to propose a new form to make fusion.
+    Definition of fusion
+
+
+###  Notes
+
+Descrever multimodal
+Descrever várias fase do multimodal (resumido)
+Descrever a fase de foco (fusion)
+    -Existe early, late and deep fusion
+Queremos propor uma nova forma de fazer Fusion (Chain Fusion)
+Dizer que a nossa proposta é inspirada nos Chain classifiers
+
+Correr os bencharmks originais
+Temos late fusion com tabular e image - benchmark
+Temos chain fusion benchmark (coorre o vgg normalmente e juntas numa rede)
+->Late fusion com tres: imagem & tabular & texto(NPL)
+->Late fusion tabular & imagem  
+->Late fusion imagem NPL
+->
+https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8269806&fbclid=IwAR1C_TKJXvLIdOsgkOiwX_A10pZocHEiBOvhgwjeYgWiTf9B7_N3PiszMQM&tag=1
+
+A imagem entra num cnn e vai para outra red
+
+->treinar image.py que entra numa rede . 
+->treinar o tabular.py e retirar as features
+-> Juntar os dois
+
+
+late fusion:
+treinar image.py uma cnn -vgg16
+treinar o tabular.py  - smodelo sequencial implementado
+os dois inputs  numa camada superior que junta as duas informações
+
+
+Chain fusion:
+treinar image.py uma cnn -vgg16
+Recebe o ultimo input + o tabular.py (nao treinado ainda/sem pesos)
+
+
+# OverLeaf Paper Link:
+
+    https://www.overleaf.com/1224357339fvmfywcnsrqp
+
+
+# Index
+
+1. Bags_of_words.py -> gera o vocab.txt 
+2. data_preraration.py  -> gera o prepared_data.csv
+3. text_model.py -> no csv original esta a usar a coluna product display name 
+4. image.py - classificacao de imagens (usa as imagens)
+5. tabular.py - usa os dados que estao no balanced_data.csv
+6. chain_fusion.py - esta neste momento a fazer fusion com o tabular.py e o image.py
+
+
+# Used datase:
+
+    https://www.kaggle.com/paramaggarwal/fashion-product-images-small 
+    
+    
+Note: (copy 'styles.csv' and 'images' folder into 'data' folder)
+
+# Tutorial: 
+
+    https://www.kaggle.com/paramaggarwal/fashion-product-images-classifier
+
+
+# Run
+
+    $ pip3 install -r requirements.txt
+    $ python3 chain_fusion.py
+
+
+
+EXAMPLE: https://github.com/drscotthawley/audio-classifier-keras-cnn
+
+
+
+
+# Main Paper
+
+Improving LSTM-based Video Description with Linguistic Knowledge Mined from Text LINK: https://arxiv.org/abs/1604.01729
+
+## Selected Papers
+
+ - [Multimodal Machine Learning: A Survey and Taxonomy](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8269806&fbclid=IwAR1C_TKJXvLIdOsgkOiwX_A10pZocHEiBOvhgwjeYgWiTf9B7_N3PiszMQM&tag=1)
+
+        -Instead of focusing on specific multimodal applications, this paper surveys the recent advances in multimodal machine learning itself and presents them in a common taxonomy. We go beyond the typical early and late fusion categorization and identify broader challenges that are faced by multimodal machine learning, namely: representation, translation, alignment, fusion, and co-learning.
+
+ - [Sense adaptive multimodal information fusion: A proposed model](https://ieeexplore.ieee.org/document/7725004)
+
+        -Describes three broad categories of multimodal fusion extensively used viz. early, late and transmedia fusion.
+        keyword: multimodal fusion
 
 
 ## Notes
@@ -88,4 +185,3 @@ We choose Late Fusion approach
     * Command: `python3 preprocess_data.py`
 3. Train Network (Audio only)
     * Command: `python3 train_network.py`
-   
