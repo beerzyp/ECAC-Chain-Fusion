@@ -1,7 +1,10 @@
+Research in Multimodal Machine Learning has been growing in importance and interest, because it can provide major advantages and results, when compared to unimodal approaches. Methods in this area have reached fields like multimedia classification, audiovisual automatic speech recognition, generation of natural language descriptions of videos, among other applications.
+
 
 # Project Description: Grupo: T02-09
 
 ### Initial:
+
 
     Follow the discusion in classes we decide to propose a new form to make fusion.
     Definition of fusion
@@ -161,27 +164,6 @@ https://musicinformationretrieval.com/mfcc.html (Librosa conversion)
 
 Contains classification of the audio
 
-### Microsoft Video Description Dataset (Youtube videos):
-
-2. Main paper datasets used
-
-[MPII Movie Description (MPII-MD) Dataset](http://www.mpi-inf.mpg.de/movie-description)
-
-[Montreal Video Annotation Description (M-VAD) Dataset](http://www.mila.umontreal.ca/Home/public-datasets/montreal-video-annotation-dataset)
-
-# Concepts
-
-1. RNN: recurrent Neural Network
-2. Long short-term memory (LSTM) is an artificial recurrent neural network (RNN) architecture[1] used in the field of deep learning. Unlike standard feedforward neural networks, LSTM has feedback connections. It can not only process single data points (such as images), but also entire sequences of data (such as speech or video). For example, LSTM is applicable to tasks such as unsegmented, connected handwriting recognition[2], speech recognition[3][4] and anomaly detection in network traffic or IDS's (intrusion detection systems). A common LSTM unit is composed of a cell, an input gate, an output gate and a forget gate. The cell remembers values over arbitrary time intervals and the three gates regulate the flow of information into and out of the cell. Source: https://en.wikipedia.org/wiki/Long_short-term_memory
-3. Machine Translation (MT): sometimes referred to by the abbreviation MT (not to be confused with computer-aided translation, machine-aided human translation (MAHT) or interactive translation) is a sub-field of computational linguistics that investigates the use of software to translate text or speech from one language to another. Source: https://en.wikipedia.org/wiki/Machine_translation
-4. Language Models (LMs):A statistical language model is a probability distribution over sequences of words. Given such a sequence, say of length m, it assigns a probability P ( w 1 , … , w m ) {\displaystyle P(w_{1},\ldots ,w_{m})}  to the whole sequence. The language model provides context to distinguish between words and phras that sound similar. For example, in American English, the phrases "recognize speech" and "wreck a nice beach" sound similar, but mean different things.
-5. S2VT: uses a sequence to sequence approach that maps an input ~x = (x 1 , ... , x T ) video frame feature sequence to a fixed dimensional vector and then decodes this into a sequence of output words ~y = (y 1 , ... , y N ). Source: Main Paper
-Convolutional Neural Network (CNN):
-
-
-
-
-
 
 # Presentation ideas
 
@@ -194,9 +176,6 @@ In practice, using an ensemble of networks trained slightly differently can impr
 We choose Late Fusion approach
  
 
-
-
-
 # How to run
 1. Download AudioSet dataset
     * Each folder represents a class
@@ -206,35 +185,3 @@ We choose Late Fusion approach
     * Command: `python3 preprocess_data.py`
 3. Train Network (Audio only)
     * Command: `python3 train_network.py`
-    
-Future Work:
-
-* Convert mp4 files from AudioSet to .wav files and use these to train the network
-* Evaluate Results
-* Add images from the video to this analysis (re-train network)
-* Evaluate Results
-
-
-
-Since the Text model had 99% accurary we decided to chance the label. The label now is: "SEASON". It's more balanced, the image model has 70% accuracy and text has 91%. We didn't tested the tabular model.
-@João Barbosa
- can say better, but I will try. The professor talked about why the chain model didn't improve our system. Mainly it's because of non-existent relation between the features of image and the tabular.
- João started cleaning the data. Removing NaN values and etc...
- We also need to start to place the text model into our chain
- We have an entire flow now. We are in a good path and we should start making releases for each test and place notes with our results
- chainfusion.py.
- Also, the teacher suggested that we tried to use a different algorithm like RF for the tabular (and chain after) to check the results
- just recapping next step for us is merging the nlp model with the other one
-
- Can someone tell me hw you guys reproduced the results for the chain_fusion you talked about here?
-what were the values for nrows?
-I'm getting strange results, like the validation accuracy is always like 0.8? and the test accuracy is like 0.2, doesn't make a alot of sense
-tried with 1000 rows and test accuracy goes up to 0.557 but the validation goes dow
-
-
-ried nrows=200 -> acc:0.23 val_acc:0.8
-tried nrows=1000 -> acc:0.52 val_acc:0.79
-
-I'm saying we didnt do "test accuracy". We just had train and validation accuracy
-Both about .7 somethin
-We decided also to predict the "season" instead of the "usage"
