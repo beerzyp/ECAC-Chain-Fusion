@@ -1,3 +1,8 @@
+## Research Paper
+### Chain Fusion: a novel fusion method in multimodal learning
+https://drive.google.com/file/d/1zc3QwAuZ8OuWiNheckDy-ldBtlTjmEny/view?usp=sharing
+
+## Poster
 <a href="https://ibb.co/jL8nGgr"><img src="https://i.ibb.co/MRgFpMC/conference-poster-6-15-1.jpg" alt="conference-poster-6-15-1" border="0"></a>
 
 Research in Multimodal Machine Learning has been growing in importance and interest, because it can provide major advantages and results, when compared to unimodal approaches. Methods in this area have reached fields like multimedia classification, audiovisual automatic speech recognition, generation of natural language descriptions of videos, among other applications.
